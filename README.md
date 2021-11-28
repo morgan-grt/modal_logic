@@ -1,1 +1,1 @@
-# modal_logic
+# TP Logique modale
