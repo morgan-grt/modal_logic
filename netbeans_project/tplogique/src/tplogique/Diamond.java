@@ -13,4 +13,9 @@ public class Diamond extends Unaire{
     public String toString(){
         return "( ◇ " + getA() + " )";
     }
+
+    @Override
+    public boolean isModelTrueForThisWorld(Model model, World world) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
