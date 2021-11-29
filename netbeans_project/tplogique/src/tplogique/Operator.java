@@ -1,26 +1,32 @@
 package tplogique;
 
-import java.util.List;
-import tptableau.Label;
-
 /**
  *
  * @author 21700094
  */
 public abstract class Operator implements Formula{
     
-    protected Formula a;
-    private Label label;
+    protected Formula a, b;
     private boolean flag;
     
-    public Operator(Formula a, Label l, boolean f){
+    public Operator(Formula a, Formula b, boolean f){
         this.a = a;
-        label = l;
+        this.b = b;
         flag = f;
     }
     
+    public Operator(Formula f){
+        this(f.getA(), f.getB(), f.getFlag());
+    }
+    
+    @Override
     public Formula getA(){
         return a;
+    }
+    
+    @Override
+    public Formula getB(){
+        return b;
     }
     
     @Override
@@ -29,17 +35,12 @@ public abstract class Operator implements Formula{
     }
     
     @Override
-    public Label getLabel() {
-        return label;
-    }
-    
-    @Override
     public abstract String toString();
     
     @Override
-    public abstract List<Formula> getChildren();
-    
-    @Override
     public abstract boolean isModelTrueForThisWorld(Model model, World world);
+    
+    @Override 
+    public abstract Formula clone();
     
 }

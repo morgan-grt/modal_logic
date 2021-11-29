@@ -9,39 +9,49 @@ import tplogique.Formula;
  * @author 21700094
  */
 public class Label {
-    private List<Formula> formulas;
+    private Formula formula;
+    private boolean handled;
     private String name;
-    
+        
     public Label(String name, Formula f){
         this.name = name;
-        formulas = new ArrayList();
-        formulas.add(f);
+        formula = f;
+        handled = false;
     }
     
-    public Label(String name){
-        this.name = name;
-        formulas = new ArrayList();
+    public Label(String name, Formula f, boolean bool){
+        this(name, f);
+        handled = bool;
     }
     
-    public Label(){this("1");}
+    public Formula getFormula() {
+        return formula;
+    }
+
+    public void setFormula(Formula formula) {
+        this.formula = formula;
+    }
+
+    public boolean isHandled() {
+        return handled;
+    }
+
+    public void setHandled(boolean handled) {
+        this.handled = handled;
+    }
     
-    public void add(Formula f){
-        formulas.add(f);
-    }
-
-    public List<Formula> getFormulas() {
-        return formulas;
-    }
-
-    public void setFormulas(List<Formula> formulas) {
-        this.formulas = formulas;
-    }
-
+    
+    
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public Label clone(){
+        return new Label(name, formula, handled);
     }
 }

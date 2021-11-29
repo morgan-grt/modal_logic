@@ -4,12 +4,13 @@ import tplogique.And;
 import tplogique.Formula;
 import tplogique.Implies;
 import tplogique.Neg;
+import tplogique.Or;
 
 /**
  *
  * @author 21700094
  */
-public class Alpha extends Rule{
+public class Beta extends Rule{
 
     @Override
     public Formula canBeApplied(Tableau t) {
@@ -18,7 +19,6 @@ public class Alpha extends Rule{
                 return f;
         }
         return null;
-        
     }
 
     @Override
@@ -27,35 +27,41 @@ public class Alpha extends Rule{
             Formula child = f.getA();
             if (child.getA() instanceof Neg){
                 Formula littleChild = child.getA();
+                Tableau tableau = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChild);  
                 
-                t.handleLabel(f, true);
-                t.add(littleChild, new Label("1", littleChild, false));
-                
+                t.setLeft(tableau);
             }
             else if (child.getA() instanceof And){
                 Formula littleChildA = child.getA();
                 Formula littleChildB = child.getB();
                 
-                t.handleLabel(f, true);
-                t.add(littleChildA, new Label("1", littleChildA, false));
-                t.add(littleChildB, new Label("1", littleChildB, false));
+                Tableau tableauA = new Tableau(t.getFormulas(), littleChildA);
+                Tableau tableauB = new Tableau(t.getFormulas(), littleChildB);
+                
+                t.setLeft(tableauA);
+                t.setRight(tableauB);
             }
             else if (child.getA() instanceof Implies){
                 Formula littleChildA = child.getA();
                 Formula littleChildB = child.getB();
                 
-                t.handleLabel(f, true);
-                t.add(littleChildA, new Label("1", littleChildA, false));
-                t.add(littleChildB, new Label("1", littleChildB, false));
+                Tableau tableauA = new Tableau(t.getFormulas(), littleChildA);
+                Tableau tableauB = new Tableau(t.getFormulas(), littleChildB);
+                
+                t.setLeft(tableauA);
+                t.setRight(tableauB);
             }
         }
-        else if (f instanceof And){
+        else if (f instanceof Or){
             Formula childA = f.getA();
             Formula childB = f.getB();
 
-            t.handleLabel(f, true);
-            t.add(childA, new Label("1", childA, false));
-            t.add(childB, new Label("1", childB, false));
+            Tableau tableauA = new Tableau(t.getFormulas(), childA, t.getMap());
+            Tableau tableauB = new Tableau(t.getFormulas(), childB);
+
+            t.setLeft(tableauA);
+            t.setRight(tableauB);
         }  
-    } 
+    }
+    
 }

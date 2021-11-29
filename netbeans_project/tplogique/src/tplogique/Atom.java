@@ -11,23 +11,27 @@ import tptableau.Label;
 public class Atom implements Formula{
     private String proposition;
     private boolean top, bot;
-    private Label label;
     private boolean flag;
     
-    public Atom(String proposition, Label l, boolean f){
+    public Atom(String proposition, boolean f){
         this.proposition = proposition;
         this.top = false;
         this.bot = false;
-        label = l;
         flag = f;
     }
     
     public Atom(String proposition){
-        this(proposition, new Label(), false);
+        this(proposition, false);
     }
     public Atom(boolean top, String proposition){
         this(proposition);
         this.top = top;
+    }
+    
+    public Atom(String proposition, boolean f, boolean top, boolean bot){
+        this(proposition, f);
+        this.top = top;
+        this.bot = bot;
     }
     
     @Override
@@ -48,19 +52,24 @@ public class Atom implements Formula{
     public boolean getFlag() {
         return flag;
     }
-    
-    @Override
-    public Label getLabel() {
-        return label;
-    }
-
-    @Override
-    public List<Formula> getChildren() {
-        return new ArrayList();
-    }
 
     @Override
     public boolean isModelTrueForThisWorld(Model model, World world) {
         return world.get().contains(this) || top;
+    }
+
+    @Override
+    public Formula getA() {
+        return null;
+    }
+
+    @Override
+    public Formula getB() {
+        return null;
+    }
+
+    @Override
+    public Formula clone() {
+        return new Atom(proposition, flag, top, bot);
     }
 }

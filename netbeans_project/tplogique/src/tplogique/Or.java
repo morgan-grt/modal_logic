@@ -4,9 +4,12 @@ package tplogique;
  *
  * @author 21700094
  */
-public class Or extends Binaire{
+public class Or extends Operator{
     public Or(Formula a, Formula b){
-        super(a, b);
+        super(a, b, false);
+    }
+    public Or(Or f){
+        super(f);
     }
     
     @Override
@@ -18,5 +21,10 @@ public class Or extends Binaire{
     public boolean isModelTrueForThisWorld(Model model, World world) {
         return a.isModelTrueForThisWorld(model, world)
                     || b.isModelTrueForThisWorld(model, world);
+    }
+
+    @Override
+    public Formula clone() {
+        return new Or(this);
     }
 }

@@ -4,9 +4,12 @@ package tplogique;
  *
  * @author 21700094
  */
-public class Diamond extends Unaire{
+public class Diamond extends Operator{
     public Diamond(Formula a){
-        super(a);
+        super(a, null, false);
+    }
+    public Diamond(Diamond f){
+        super(f);
     }
     
     @Override
@@ -22,5 +25,10 @@ public class Diamond extends Unaire{
             }
         }
         return false;
+    }
+    
+    @Override
+    public Formula clone() {
+        return new Diamond(this);
     }
 }

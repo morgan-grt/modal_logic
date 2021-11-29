@@ -4,9 +4,12 @@ package tplogique;
  *
  * @author 21700094
  */
-public class Box extends Unaire{
+public class Box extends Operator{
     public Box(Formula a){
-        super(a);
+        super(a, null, false);
+    }
+    public Box(Box f){
+        super(f);
     }
     
     @Override
@@ -22,6 +25,11 @@ public class Box extends Unaire{
             }
         }
         return true;
+    }
+
+    @Override
+    public Formula clone() {
+        return new Diamond(this);
     }
 
 }
