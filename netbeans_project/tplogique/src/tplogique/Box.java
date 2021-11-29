@@ -16,7 +16,12 @@ public class Box extends Unaire{
 
     @Override
     public boolean isModelTrueForThisWorld(Model model, World world) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (World w : model.getMap().get(world)){
+            if (! getA().isModelTrueForThisWorld(model, w)){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

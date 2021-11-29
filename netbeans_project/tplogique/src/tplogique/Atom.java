@@ -10,20 +10,24 @@ import tptableau.Label;
  */
 public class Atom implements Formula{
     private String proposition;
-    private final String top, bot;
+    private boolean top, bot;
     private Label label;
     private boolean flag;
     
     public Atom(String proposition, Label l, boolean f){
         this.proposition = proposition;
-        this.top = "";
-        this.bot = "";
+        this.top = false;
+        this.bot = false;
         label = l;
         flag = f;
     }
     
     public Atom(String proposition){
         this(proposition, new Label(), false);
+    }
+    public Atom(boolean top, String proposition){
+        this(proposition);
+        this.top = top;
     }
     
     @Override
@@ -57,6 +61,6 @@ public class Atom implements Formula{
 
     @Override
     public boolean isModelTrueForThisWorld(Model model, World world) {
-        return world.get().contains(this);
+        return world.get().contains(this) || top;
     }
 }

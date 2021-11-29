@@ -27,7 +27,7 @@ public class WorldGenerator {
                 if (random.nextBoolean())
                     atoms.add(new Atom(letter));
             }
-            worlds.add(new World(atoms));
+            worlds.add(new World("", atoms));
         }
         return worlds;
     }
