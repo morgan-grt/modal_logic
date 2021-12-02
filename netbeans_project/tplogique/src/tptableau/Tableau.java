@@ -81,7 +81,7 @@ public class Tableau {
     
     @Override
     public String toString(){
-        return formula + "\n |\n" + left.getFormula() + "\n |\n" + right.getFormula(); 
+        return formula + "\n |\n" + ((left != null) ? left.getFormula() : "") + "\n |\n" + ((right != null) ? right.getFormula() : ""); 
     }
     
     public List<Formula> cloneFormulas(){
@@ -99,7 +99,9 @@ public class Tableau {
     public Map<Formula, Label> cloneMap(){
         Map<Formula, Label> m = new HashMap();
         for (Map.Entry mapentry : map.entrySet()){
-            m.put(mapentry.getKey().clone(), mapentry.getValue().clone());
+            Formula f = (Formula) mapentry.getKey();
+            Label l = (Label) mapentry.getValue();
+            m.put(f.clone(), l.clone());
         }
         return m;
     }

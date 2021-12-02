@@ -26,8 +26,10 @@ public class Beta extends Rule{
         if (f instanceof Neg){
             Formula child = f.getA();
             if (child.getA() instanceof Neg){
-                Formula littleChild = child.getA();
-                Tableau tableau = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChild);  
+                Formula littleChildA = child.getA();
+                Label labelA = new Label("1", littleChildA, false);
+                Tableau tableau = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChildA, t.cloneMap()); 
+                tableau.add(littleChildA, labelA);
                 
                 t.setLeft(tableau);
             }
@@ -35,8 +37,14 @@ public class Beta extends Rule{
                 Formula littleChildA = child.getA();
                 Formula littleChildB = child.getB();
                 
-                Tableau tableauA = new Tableau(t.getFormulas(), littleChildA);
-                Tableau tableauB = new Tableau(t.getFormulas(), littleChildB);
+                Label labelA = new Label("1", littleChildA, false);
+                Label labelB = new Label("1", littleChildB, false);
+                
+                Tableau tableauA = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChildA, t.cloneMap()); 
+                Tableau tableauB = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChildB, t.cloneMap());
+                
+                tableauA.add(littleChildA, labelA);
+                tableauB.add(littleChildB, labelB);
                 
                 t.setLeft(tableauA);
                 t.setRight(tableauB);
@@ -45,8 +53,14 @@ public class Beta extends Rule{
                 Formula littleChildA = child.getA();
                 Formula littleChildB = child.getB();
                 
-                Tableau tableauA = new Tableau(t.getFormulas(), littleChildA);
-                Tableau tableauB = new Tableau(t.getFormulas(), littleChildB);
+                Label labelA = new Label("1", littleChildA, false);
+                Label labelB = new Label("1", littleChildB, false);
+                
+                Tableau tableauA = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChildA, t.cloneMap()); 
+                Tableau tableauB = new Tableau(t.cloneFormulas(), t.cloneLabels(), littleChildB, t.cloneMap());
+                
+                tableauA.add(littleChildA, labelA);
+                tableauB.add(littleChildB, labelB);
                 
                 t.setLeft(tableauA);
                 t.setRight(tableauB);
@@ -56,8 +70,14 @@ public class Beta extends Rule{
             Formula childA = f.getA();
             Formula childB = f.getB();
 
-            Tableau tableauA = new Tableau(t.getFormulas(), childA, t.getMap());
-            Tableau tableauB = new Tableau(t.getFormulas(), childB);
+            Label labelA = new Label("1", childA, false);
+            Label labelB = new Label("1", childB, false);
+
+            Tableau tableauA = new Tableau(t.cloneFormulas(), t.cloneLabels(), childA, t.cloneMap()); 
+            Tableau tableauB = new Tableau(t.cloneFormulas(), t.cloneLabels(), childB, t.cloneMap());
+
+            tableauA.add(childA, labelA);
+            tableauB.add(childB, labelB);
 
             t.setLeft(tableauA);
             t.setRight(tableauB);

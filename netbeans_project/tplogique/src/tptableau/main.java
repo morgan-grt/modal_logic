@@ -19,9 +19,9 @@ public class main {
     public static void main(String[] args) {
         Formula f = new And(new Or(new Atom("A"), new Neg(new Atom("B"))), new Atom("B"));
         Label l = new Label("1", f, false);
-        System.out.println(f);
+        print(f);
         
-        System.out.println((f instanceof Or));
+        print((f instanceof Or));
         
         List<Formula> fs = new ArrayList();
         List<Label> labels = new ArrayList();
@@ -34,6 +34,10 @@ public class main {
         
         new Alpha().apply(f, t);
         
-        System.out.println(t);
+        print(t);
+    }
+    
+    public static void print(Object o){
+        System.out.println(o);
     }
 }
